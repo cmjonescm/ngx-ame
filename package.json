@@ -1,6 +1,6 @@
 {
-  "name": "ngx-ame",
-  "version": "0.0.0",
+  "name": "cjsoftware",
+  "version": "0.1.0",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -13,7 +13,19 @@
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
-    "postinstall": "ngcc --properties es2015 browser module main"
+    "postinstall": "ngcc --properties es2015 browser module main",
+    "copy-readme": "copy .\\README.md .\\dist\\libs\\foundation",
+    "copy-license": "copy .\\LICENSE .\\dist\\libs\\foundation",
+    "copy-changelog": "copy .\\Changelog.md .\\dist\\libs\\foundation",
+    "copy-files": "run-s copy-readme copy-license",
+    "commit-git": "git commit -m \"build: adds new release\" && git push origin && git push origin --tags",
+    "bump-version:major": "npm version major --force && cd libs/foundation && npm version major --force",
+    "bump-version:minor": "npm version minor --force && cd libs/foundation && npm version minor --force",
+    "bump-version:patch": "npm version patch --force && cd libs/foundation && npm version patch --force",
+    "build:lib-pack": "ng build foundation && npm run copy-files &&  cd dist/libs/foundation && npm pack",
+    "pre-publish:minor": "run-s bump-version:minor build:lib-pack commit-git",
+    "pre-publish:major": "run-s bump-version:major build:lib-pack commit-git",
+    "pre-publish:patch": "run-s bump-version:patch build:lib-pack commit-git"
   },
   "private": true,
   "devDependencies": {
@@ -40,6 +52,7 @@
     "jest-preset-angular": "10.0.1",
     "ng-packagr": "^12.1.1",
     "ngx-deploy-npm": "^3.0.6",
+    "npm-run-all": "^4.1.5",
     "prettier": "^2.3.1",
     "ts-jest": "27.0.5",
     "typescript": "~4.3.5"
