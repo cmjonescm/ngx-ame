@@ -1,7 +1,61 @@
 {
   "version": 2,
-  "projects": {},
+  "projects": {
+    "foundation": {
+      "projectType": "library",
+      "root": "libs/foundation",
+      "sourceRoot": "libs/foundation/src",
+      "prefix": "ngx-ame",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/angular:package",
+          "outputs": ["dist/libs/foundation"],
+          "options": {
+            "project": "libs/foundation/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/foundation/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/foundation/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/foundation"],
+          "options": {
+            "jestConfig": "libs/foundation/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/foundation/src/**/*.ts",
+              "libs/foundation/src/**/*.html"
+            ]
+          }
+        }
+      }
+    }
+  },
   "cli": {
-    "defaultCollection": "@nrwl/workspace"
-  }
+    "defaultCollection": "@nrwl/angular"
+  },
+  "generators": {
+    "@nrwl/angular:application": {
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:library": {
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {}
+  },
+  "defaultProject": "foundation"
 }
