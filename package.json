@@ -1,6 +1,6 @@
 {
   "name": "cjsoftware",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -22,7 +22,7 @@
     "bump-version:major": "npm version major --force && cd libs/foundation && npm version major --force",
     "bump-version:minor": "npm version minor --force && cd libs/foundation && npm version minor --force",
     "bump-version:patch": "npm version patch --force && cd libs/foundation && npm version patch --force",
-    "build:lib-pack": "ng build foundation && npm run copy-files &&  cd dist/libs/foundation && npm pack",
+    "build:lib-pack": "nx build foundation && npm run copy-files &&  cd dist/libs/foundation && npm pack",
     "pre-publish:minor": "run-s bump-version:minor build:lib-pack commit-git",
     "pre-publish:major": "run-s bump-version:major build:lib-pack commit-git",
     "pre-publish:patch": "run-s bump-version:patch build:lib-pack commit-git"
